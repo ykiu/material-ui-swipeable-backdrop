@@ -22,7 +22,10 @@ jest.useFakeTimers();
 function Wrapper(props) {
   return (
     <ThemeProvider theme={theme}>
-      <Backdrop {...props} />
+      <Backdrop
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...props}
+      />
     </ThemeProvider>
   );
 }
@@ -39,6 +42,7 @@ function createTestEnv({ backLayerOpen = false, ...rest } = {}) {
       onTransitionEnd={onTransitionEnd}
       onBackLayerClose={onBackLayerClose}
       onBackLayerOpen={onBackLayerOpen}
+      // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
     />,
   );

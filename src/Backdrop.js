@@ -166,7 +166,12 @@ function Backdrop({
         <div className={classes.swipeMark} />
         {frontLayer}
       </Paper>
-      <div {...swipeHandlers} style={{ top: swipeHandleY - 16 }} className={classes.swipeHandle} />
+      <div
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...swipeHandlers}
+        style={{ top: swipeHandleY - 16 }}
+        className={classes.swipeHandle}
+      />
     </div>
   );
 }
@@ -176,6 +181,7 @@ Backdrop.defaultProps = {
   expandedBackLayerHeight: 300,
   frontLayer: null,
   backLayer: null,
+  backLayerOpen: true,
   onSwipeStart() {},
   onTransitionEnd() {},
   classes: {},
@@ -186,6 +192,7 @@ Backdrop.propTypes = {
   expandedBackLayerHeight: PropTypes.number,
   frontLayer: PropTypes.node,
   backLayer: PropTypes.node,
+  backLayerOpen: PropTypes.bool,
   onSwipeStart: PropTypes.func,
   onTransitionEnd: PropTypes.func,
   onBackLayerOpen: PropTypes.func.isRequired,
