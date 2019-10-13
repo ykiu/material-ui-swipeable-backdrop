@@ -71,8 +71,8 @@ function swipe({ deltaY, speed }) {
   // called multiple times during a swipe.
   const absDeltaY = Math.abs(deltaY);
   onSwiping({ deltaY: deltaY / 2, event: { timeStamp: absDeltaY / 2 / speed } });
-  onSwiping({ deltaY: deltaY, event: { timeStamp: absDeltaY / speed } });
-  onSwiped({ deltaY: deltaY, event: { timeStamp: absDeltaY / speed } });
+  onSwiping({ deltaY, event: { timeStamp: absDeltaY / speed } });
+  onSwiped({ deltaY, event: { timeStamp: absDeltaY / speed } });
 }
 
 describe('Backdrop', () => {

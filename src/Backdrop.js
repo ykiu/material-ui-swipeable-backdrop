@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
   },
   backlayerTransition: {
-    transitionDuration: TRANSITION_DURATION + 'ms',
+    transitionDuration: `${TRANSITION_DURATION}ms`,
     transitionProperty: 'height',
     transitionTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
   },
