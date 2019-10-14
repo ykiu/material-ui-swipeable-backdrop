@@ -4,8 +4,8 @@ import commonjs from 'rollup-plugin-commonjs';
 import css from 'rollup-plugin-css-only';
 
 export default {
-  input: './index.js',
-  output: [{ file: `./build/bundle.js`, format: 'iife' }],
+  input: './doc/index.js',
+  output: [{ file: `./doc/public/bundle.js`, format: 'iife' }],
   plugins: [
     babel({ runtimeHelpers: true }),
     resolve({}),
@@ -23,6 +23,6 @@ export default {
         'react-is': ['ForwardRef'],
       },
     }),
-    css({ output: './build/bundle.css' }),
+    css({ output: './doc/public/bundle.css' }),
   ],
 };

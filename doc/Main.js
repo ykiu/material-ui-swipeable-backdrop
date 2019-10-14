@@ -4,6 +4,8 @@ import { makeStyles, Typography, Container } from '@material-ui/core';
 import preval from 'preval.macro';
 import 'prismjs/themes/prism-okaidia.css';
 import { grey } from '@material-ui/core/colors';
+import Demo from './Demo';
+import BasicUsage from './demos/BasicUsage';
 
 const useStyles = makeStyles(() => ({
   code: {
@@ -18,24 +20,16 @@ function Main() {
     <Container>
       <Typography variant="h5">Introduction</Typography>
       <Typography>Lorem imsum</Typography>
-      <code>
-        <pre
-          className={classes.code}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: preval`
-  const fs = require('fs');
-  const Prism = require('prismjs');
-  const loadLanguages = require('prismjs/components/');
-  loadLanguages('jsx')
-
-  const code = fs.readFileSync('./demos/BasicUsage.js', 'utf8');
-
-  module.exports = Prism.highlight(code, Prism.languages.jsx, 'jsx');
-            `,
-          }}
-        />
-      </code>
+      <Demo
+        code={preval`
+              module.exports = require(
+                './preprocessors/highlight'
+              )(
+                './doc/demos/BasicUsage.js'
+              );
+            `}
+        demo={<BasicUsage />}
+      />
     </Container>
   );
 }
