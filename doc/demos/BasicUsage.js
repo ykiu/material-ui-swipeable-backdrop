@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { makeStyles } from '@material-ui/styles';
-import Backdrop from '../.main/material-ui-swipeable-backdrop.esm';
+import Backdrop from '../../src/Backdrop';
 
 const useStyles = makeStyles(() => ({
   backdrop: {
-    position: 'initial',
+    position: 'relative',
     width: 240,
     height: 320,
   },
@@ -12,5 +12,20 @@ const useStyles = makeStyles(() => ({
 
 export default function BasicUsage() {
   const classes = useStyles();
-  return <Backdrop classes={{ root: classes.backdrop }} />;
+  const [backLayerOpen, setBackLayerOpen] = useState(false);
+  const handleBackLayerClose = useCallback(() => {
+    setBackLayerOpen(false);
+  }, []);
+  const handleBackLayerOpen = useCallback(() => {
+    setBackLayerOpen(true);
+  }, []);
+
+  return (
+    <Backdrop
+      classes={{ root: classes.backdrop }}
+      backLayerOpen={backLayerOpen}
+      onBackLayerClose={handleBackLayerClose}
+      onBackLayerOpen={handleBackLayerOpen}
+    />
+  );
 }

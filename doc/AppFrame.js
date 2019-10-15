@@ -4,10 +4,7 @@ import { makeStyles, AppBar, Typography, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   spacer: {
-    height: theme.spacing(13),
-    [theme.breakpoints.up('sm')]: {
-      height: theme.spacing(8),
-    },
+    height: theme.spacing(12),
   },
 }));
 
@@ -17,7 +14,7 @@ function AppFrame({ main }) {
     <>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography>Material-UI Swipeable Backdrop</Typography>
+          <Typography variant="h6">Swipeable Backdrop</Typography>
         </Toolbar>
       </AppBar>
       <div className={classes.spacer} />
