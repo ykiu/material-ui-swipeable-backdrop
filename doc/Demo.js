@@ -18,12 +18,14 @@ const useStyles = makeStyles(theme => ({
     color: '#fff',
     backgroundColor: grey[900],
     overflowY: 'scroll',
+    fontSize: '1rem',
   },
   demoContainer: {
     textAlign: 'center',
     backgroundColor: grey[100],
   },
   demoWrapper: {
+    textAlign: 'initial',
     display: 'inline-block',
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
