@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     height: theme.spacing(7),
     width: '100%',
-    opacity: 0.3,
+    touchAction: 'none',
   },
   frontLayer: {
     width: '100%',
