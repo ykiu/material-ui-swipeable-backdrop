@@ -100,6 +100,7 @@ function Backdrop({
   onBackLayerOpen,
   onBackLayerClose,
   classes: extraClasses,
+  className,
 }) {
   const classes = useStyles();
   const [swipeSurfaceY, setSwipeSurfaceY] = useState(
@@ -159,7 +160,7 @@ function Backdrop({
   });
 
   return (
-    <div className={clsx(classes.root, extraClasses.root)}>
+    <div className={clsx(className, classes.root, extraClasses.root)}>
       <div
         className={clsx(
           classes.backLayer,
@@ -198,6 +199,7 @@ Backdrop.defaultProps = {
   backLayerOpen: true,
   onSwipeStart() {},
   onTransitionEnd() {},
+  className: null,
   classes: {},
 };
 
@@ -211,6 +213,7 @@ Backdrop.propTypes = {
   onTransitionEnd: PropTypes.func,
   onBackLayerOpen: PropTypes.func.isRequired,
   onBackLayerClose: PropTypes.func.isRequired,
+  className: PropTypes.string,
   classes: PropTypes.objectOf(PropTypes.any),
 };
 

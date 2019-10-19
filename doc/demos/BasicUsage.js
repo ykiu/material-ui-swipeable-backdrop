@@ -124,7 +124,7 @@ export default function BasicUsage() {
 
   return (
     <Backdrop
-      classes={{ root: classes.backdrop }}
+      className={classes.backdrop}
       backLayer={backLayer}
       frontLayer={frontLayer}
       backLayerOpen={backLayerOpen}
