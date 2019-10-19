@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 3),
     color: '#fff',
     backgroundColor: grey[900],
-    overflowY: 'scroll',
+    overflowX: 'auto',
     fontSize: '14px',
     borderRadius: theme.spacing(0.5),
   },
