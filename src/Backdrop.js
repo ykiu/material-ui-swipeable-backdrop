@@ -46,6 +46,16 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     flex: 1,
     borderRadius: theme.spacing(2, 2, 0, 0),
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  frontLayerContentWrapper1: {
+    position: 'relative',
+    flex: 1,
+  },
+  frontLayerContentWrapper2: {
+    position: 'absolute',
+    height: '100%',
   },
 }));
 
@@ -164,7 +174,11 @@ function Backdrop({
       </div>
       <Paper className={clsx(classes.frontLayer, extraClasses.frontLayer)}>
         <div className={classes.swipeMark} />
-        {frontLayer}
+        <div className={classes.frontLayerContentWrapper1}>
+          <div className={classes.frontLayerContentWrapper2}>{frontLayer}</div>
+          {/* This series of wrapping divs is ugly, but is neccessary */}
+          {/* to make `height: 100%` work inside the front layer */}
+        </div>
       </Paper>
       <div
         // eslint-disable-next-line react/jsx-props-no-spreading

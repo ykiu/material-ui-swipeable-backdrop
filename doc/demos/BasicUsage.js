@@ -11,24 +11,11 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 400,
     height: 324,
   },
-  frontLayerContent: {
-    position: 'relative',
-    flex: 1,
-    overflow: 'hidden',
-  },
   frontLayer: {
-    display: 'flex',
-    flexDirection: 'column',
+    height: '100%',
+    overflowY: 'auto',
   },
-  mainContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    overflow: 'scroll',
-  },
-  mainWrapper: {
+  mainTextWrapper: {
     padding: theme.spacing(4, 2),
   },
   backLayer: {
@@ -128,18 +115,16 @@ export default function BasicUsage() {
   const { mainText } = menuItems[activeStep];
 
   const frontLayer = (
-    <div className={classes.frontLayerContent}>
-      <div className={classes.mainContainer}>
-        <div className={classes.mainWrapper}>
-          <Typography>{mainText}</Typography>
-        </div>
+    <div className={classes.frontLayer}>
+      <div className={classes.mainTextWrapper}>
+        <Typography>{mainText}</Typography>
       </div>
     </div>
   );
 
   return (
     <Backdrop
-      classes={{ root: classes.backdrop, frontLayer: classes.frontLayer }}
+      classes={{ root: classes.backdrop }}
       backLayer={backLayer}
       frontLayer={frontLayer}
       backLayerOpen={backLayerOpen}
