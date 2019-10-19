@@ -117,7 +117,7 @@ function Main() {
           Material-UI
         </Link>
         {SPACE}
-        library.
+        framework.
       </Typography>
       <Demo
         code={preval`
