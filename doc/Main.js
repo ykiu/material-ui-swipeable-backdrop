@@ -7,6 +7,7 @@ import Demo from './Demo';
 import BasicUsage from './demos/BasicUsage';
 import Code from './Code';
 import Heading from './Heading';
+import { GITHUB_BLOB_URL } from './constants';
 
 const SPACE = ' ';
 
@@ -106,11 +107,15 @@ function Main() {
       <Typography gutterBottom>
         Material-ish
         {SPACE}
-        <Link href="https://material.io/components/backdrop/">Backdrop</Link>
+        <Link href="https://material.io/components/backdrop/" target="_blank">
+          Backdrop
+        </Link>
         {SPACE}
         react component that is swipeable. An extension to the awesome
         {SPACE}
-        <Link href="https://material-ui.com">Material-UI</Link>
+        <Link href="https://material-ui.com" target="_blank">
+          Material-UI
+        </Link>
         {SPACE}
         library.
       </Typography>
@@ -123,6 +128,7 @@ function Main() {
               );
             `}
         demo={<BasicUsage />}
+        githubUrl={`${GITHUB_BLOB_URL}doc/demos/BasicUsage.js`}
         className={classes.demo}
       />
       <Heading variant="h4">Installing</Heading>

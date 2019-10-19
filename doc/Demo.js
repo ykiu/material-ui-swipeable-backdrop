@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Demo({ className, code, demo }) {
+function Demo({ className, code, githubUrl, demo }) {
   const classes = useStyles();
   const [codeOpen, setCodeOpen] = useState(false);
   const handleCodeIconClick = useCallback(() => {
@@ -42,7 +42,7 @@ function Demo({ className, code, demo }) {
         <IconButton onClick={handleCodeIconClick}>
           <CodeIcon />
         </IconButton>
-        <IconButton onClick={handleCodeIconClick}>
+        <IconButton href={githubUrl} target="_black">
           <GitHubIcon />
         </IconButton>
       </div>
@@ -61,6 +61,7 @@ Demo.defaultProps = {
 Demo.propTypes = {
   code: PropTypes.string.isRequired,
   demo: PropTypes.node.isRequired,
+  githubUrl: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 
