@@ -4,7 +4,9 @@ import clsx from 'clsx';
 import { grey } from '@material-ui/core/colors';
 import makeStyles from '@material-ui/styles/makeStyles';
 import CodeIcon from '@material-ui/icons/Code';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { Paper, IconButton } from '@material-ui/core';
+import Code from './Code';
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
@@ -13,16 +15,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
   },
   code: {
-    margin: 0,
-    padding: theme.spacing(2),
-    color: '#fff',
-    backgroundColor: grey[900],
-    overflowY: 'scroll',
-    fontSize: '1rem',
+    marginBottom: theme.spacing(1),
   },
   demoContainer: {
     textAlign: 'center',
-    backgroundColor: grey[100],
+    backgroundColor: grey[200],
+    borderRadius: theme.spacing(0.5),
   },
   demoWrapper: {
     textAlign: 'initial',
@@ -32,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Demo({ className, code, demo, classes: extraClasses }) {
+function Demo({ className, code, demo }) {
   const classes = useStyles();
   const [codeOpen, setCodeOpen] = useState(false);
   const handleCodeIconClick = useCallback(() => {
@@ -44,18 +42,11 @@ function Demo({ className, code, demo, classes: extraClasses }) {
         <IconButton onClick={handleCodeIconClick}>
           <CodeIcon />
         </IconButton>
+        <IconButton onClick={handleCodeIconClick}>
+          <GitHubIcon />
+        </IconButton>
       </div>
-      {codeOpen ? (
-        <code className={extraClasses.code}>
-          <pre
-            className={classes.code}
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{
-              __html: code,
-            }}
-          />
-        </code>
-      ) : null}
+      {codeOpen ? <Code code={code} className={classes.code} /> : null}
       <div className={classes.demoContainer}>
         <Paper className={classes.demoWrapper}>{demo}</Paper>
       </div>
@@ -65,13 +56,11 @@ function Demo({ className, code, demo, classes: extraClasses }) {
 
 Demo.defaultProps = {
   className: null,
-  classes: {},
 };
 
 Demo.propTypes = {
   code: PropTypes.string.isRequired,
   demo: PropTypes.node.isRequired,
-  classes: PropTypes.objectOf(PropTypes.string.isRequired),
   className: PropTypes.string,
 };
 
