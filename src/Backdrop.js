@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     bottom: '0px',
     left: '0px',
     right: '0px',
+    backgroundColor: theme.palette.primary.main,
   },
   backLayer: {
     overflow: 'hidden',
