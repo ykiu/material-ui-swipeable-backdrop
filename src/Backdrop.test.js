@@ -31,15 +31,15 @@ function Wrapper(props) {
 }
 
 function createTestEnv({ backLayerOpen = false, ...rest } = {}) {
-  const onSwipeStart = jest.fn();
-  const onTransitionEnd = jest.fn();
+  const onFrontLayerUnfix = jest.fn();
+  const onFrontLayerFix = jest.fn();
   const onBackLayerClose = jest.fn();
   const onBackLayerOpen = jest.fn();
   const wrapper = mount(
     <Wrapper
       backLayerOpen={backLayerOpen}
-      onSwipeStart={onSwipeStart}
-      onTransitionEnd={onTransitionEnd}
+      onFrontLayerUnfix={onFrontLayerUnfix}
+      onFrontLayerFix={onFrontLayerFix}
       onBackLayerClose={onBackLayerClose}
       onBackLayerOpen={onBackLayerOpen}
       // eslint-disable-next-line react/jsx-props-no-spreading
@@ -47,8 +47,8 @@ function createTestEnv({ backLayerOpen = false, ...rest } = {}) {
     />,
   );
   return {
-    onSwipeStart,
-    onTransitionEnd,
+    onFrontLayerUnfix,
+    onFrontLayerFix,
     onBackLayerClose,
     onBackLayerOpen,
     backLayerHeight() {
@@ -81,28 +81,28 @@ function swipe({ deltaY, speed }) {
 
 describe('Backdrop', () => {
   describe("Back layer's height", () => {
-    it('equals to <collapsedBackLayerHeight>', () => {
+    it('equals to <closedBackLayerHeight>', () => {
       const { backLayerHeight: defaultBackLayerHeight } = createTestEnv();
       expect(defaultBackLayerHeight()).toEqual('56px');
-      const { backLayerHeight } = createTestEnv({ collapsedBackLayerHeight: 80 });
+      const { backLayerHeight } = createTestEnv({ closedBackLayerHeight: 80 });
       expect(backLayerHeight()).toEqual('80px');
     });
-    it('equals to <expandedBackLayerHeight> if backLayerOpen is true', () => {
+    it('equals to <openBackLayerHeight> if backLayerOpen is true', () => {
       const { backLayerHeight: defaultBackLayerHeight } = createTestEnv({ backLayerOpen: true });
       expect(defaultBackLayerHeight()).toEqual('300px');
       const { backLayerHeight } = createTestEnv({
         backLayerOpen: true,
-        expandedBackLayerHeight: 280,
+        openBackLayerHeight: 280,
       });
       expect(backLayerHeight()).toEqual('280px');
     });
-    it('equals to <collapsedBackLayerHeight> after a swipe collapsed the back layer', () => {
+    it('equals to <closedBackLayerHeight> after a swipe closed the back layer', () => {
       const { backLayerHeight, setProps } = createTestEnv({ backLayerOpen: true });
       expect(backLayerHeight()).toEqual('300px');
       setProps({ backLayerOpen: false });
       expect(backLayerHeight()).toEqual('56px');
     });
-    it('equals to <expandedBackLayerHeight> after a swipe collapsed the back layer', () => {
+    it('equals to <openBackLayerHeight> after a swipe opened the back layer', () => {
       const { backLayerHeight, setProps } = createTestEnv();
       expect(backLayerHeight()).toEqual('56px');
       setProps({ backLayerOpen: true });
@@ -114,19 +114,19 @@ describe('Backdrop', () => {
       expect(backLayerHeight()).toEqual('66px');
     });
   });
-  it('fires onSwipeStart() every time a swipe starts', () => {
-    const { onSwipeStart } = createTestEnv();
+  it('fires onFrontLayerUnfix() every time a swipe starts', () => {
+    const { onFrontLayerUnfix } = createTestEnv();
     onSwiping({ deltaY: -10, event: { timeStamp: 0 } });
     onSwiping({ deltaY: -20, event: { timeStamp: 10000 } });
     // During a swipe, onSwiping() is invoked many times,
-    // but only the first invokation triggers onSwipeStart()
-    expect(onSwipeStart).toHaveBeenCalledTimes(1);
+    // but only the first invokation triggers onFrontLayerUnfix()
+    expect(onFrontLayerUnfix).toHaveBeenCalledTimes(1);
 
     // Once a swipe is complete, the internal state of Backdrop is reset
-    // and onSwipeStart() is invoked when another swipe starts.
+    // and onFrontLayerUnfix() is invoked when another swipe starts.
     onSwiped({ deltaY: -20, event: { timeStamp: 10000 } });
     onSwiping({ deltaY: -10, event: { timeStamp: 10000 } });
-    expect(onSwipeStart).toHaveBeenCalledTimes(2);
+    expect(onFrontLayerUnfix).toHaveBeenCalledTimes(2);
   });
   it('does NOT fire onBackLayerOpen() if the swipe velocity is low', () => {
     const { onBackLayerOpen } = createTestEnv();
@@ -160,14 +160,14 @@ describe('Backdrop', () => {
     swipe({ deltaY: 290, speed: 0.1 });
     expect(onBackLayerClose).toHaveBeenCalledTimes(1);
   });
-  it('fires onTransitionEnd() if the value of backLayerOpen changes', async () => {
+  it('fires onFrontLayerFix() if the value of backLayerOpen changes', async () => {
     // Nice guide to async tests
     // https://stackoverflow.com/a/52196951
-    const { setProps, onTransitionEnd, update } = createTestEnv();
+    const { setProps, onFrontLayerFix, update } = createTestEnv();
     setProps({ backLayerOpen: true });
     update();
     jest.advanceTimersByTime(TRANSITION_DURATION);
     await Promise.resolve();
-    expect(onTransitionEnd).toHaveBeenCalled();
+    expect(onFrontLayerFix).toHaveBeenCalled();
   });
 });

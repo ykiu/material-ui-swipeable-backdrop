@@ -76,15 +76,10 @@ function calcVelocity(prevEvent, curEvent) {
   return velocity;
 }
 
-function calcPostSwipeAction(
-  currentHeight,
-  velocity,
-  collapsedBackLayerHeight,
-  expandedBackLayerHeight,
-) {
+function calcPostSwipeAction(currentHeight, velocity, closedBackLayerHeight, openBackLayerHeight) {
   const action =
-    calcDistance(currentHeight + velocity * 1000, collapsedBackLayerHeight) <
-    calcDistance(currentHeight + velocity * 1000, expandedBackLayerHeight)
+    calcDistance(currentHeight + velocity * 1000, closedBackLayerHeight) <
+    calcDistance(currentHeight + velocity * 1000, openBackLayerHeight)
       ? COLLAPSE
       : EXPAND;
   return action;
@@ -94,10 +89,10 @@ function Backdrop({
   frontLayer,
   backLayer,
   backLayerOpen,
-  collapsedBackLayerHeight,
-  expandedBackLayerHeight,
-  onSwipeStart,
-  onTransitionEnd,
+  closedBackLayerHeight,
+  openBackLayerHeight,
+  onFrontLayerUnfix,
+  onFrontLayerFix,
   onBackLayerOpen,
   onBackLayerClose,
   classes: extraClasses,
@@ -105,12 +100,12 @@ function Backdrop({
 }) {
   const classes = useStyles();
   const [swipeSurfaceY, setSwipeSurfaceY] = useState(
-    backLayerOpen ? expandedBackLayerHeight : collapsedBackLayerHeight,
+    backLayerOpen ? openBackLayerHeight : closedBackLayerHeight,
   );
   const [underTransition, setUnderTransition] = useState(false);
   const [prevEvent, setPrevEvent] = useState(null);
   const [postSwipeAction, setPostSwipeAction] = useState(EXPAND);
-  const swipeHandleY = backLayerOpen ? expandedBackLayerHeight : collapsedBackLayerHeight;
+  const swipeHandleY = backLayerOpen ? openBackLayerHeight : closedBackLayerHeight;
 
   const handleSwiping = curEvent => {
     if (prevEvent) {
@@ -119,26 +114,26 @@ function Backdrop({
       const action = calcPostSwipeAction(
         currentHeight,
         velocity,
-        collapsedBackLayerHeight,
-        expandedBackLayerHeight,
+        closedBackLayerHeight,
+        openBackLayerHeight,
       );
       setPostSwipeAction(action);
     } else {
-      onSwipeStart();
+      onFrontLayerUnfix();
     }
     setPrevEvent(curEvent);
     setSwipeSurfaceY(-curEvent.deltaY + swipeHandleY);
   };
 
   const snapBackLayer = useCallback(async () => {
-    const snappedY = backLayerOpen ? expandedBackLayerHeight : collapsedBackLayerHeight;
+    const snappedY = backLayerOpen ? openBackLayerHeight : closedBackLayerHeight;
     setPrevEvent(null);
     setUnderTransition(true);
     setSwipeSurfaceY(snappedY);
     await sleep(TRANSITION_DURATION);
     setUnderTransition(false);
-    onTransitionEnd();
-  }, [backLayerOpen, collapsedBackLayerHeight, expandedBackLayerHeight, onTransitionEnd]);
+    onFrontLayerFix();
+  }, [backLayerOpen, closedBackLayerHeight, openBackLayerHeight, onFrontLayerFix]);
 
   const handleSwiped = useCallback(async () => {
     if (postSwipeAction === EXPAND && !backLayerOpen) {
@@ -193,25 +188,25 @@ function Backdrop({
 }
 
 Backdrop.defaultProps = {
-  collapsedBackLayerHeight: 56,
-  expandedBackLayerHeight: 300,
+  closedBackLayerHeight: 56,
+  openBackLayerHeight: 300,
   frontLayer: null,
   backLayer: null,
   backLayerOpen: true,
-  onSwipeStart() {},
-  onTransitionEnd() {},
+  onFrontLayerUnfix() {},
+  onFrontLayerFix() {},
   className: null,
   classes: {},
 };
 
 Backdrop.propTypes = {
-  collapsedBackLayerHeight: PropTypes.number,
-  expandedBackLayerHeight: PropTypes.number,
+  closedBackLayerHeight: PropTypes.number,
+  openBackLayerHeight: PropTypes.number,
   frontLayer: PropTypes.node,
   backLayer: PropTypes.node,
   backLayerOpen: PropTypes.bool,
-  onSwipeStart: PropTypes.func,
-  onTransitionEnd: PropTypes.func,
+  onFrontLayerUnfix: PropTypes.func,
+  onFrontLayerFix: PropTypes.func,
   onBackLayerOpen: PropTypes.func.isRequired,
   onBackLayerClose: PropTypes.func.isRequired,
   className: PropTypes.string,

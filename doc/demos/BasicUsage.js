@@ -6,7 +6,6 @@ import Backdrop from '../../src/Backdrop';
 const useStyles = makeStyles(theme => ({
   backdrop: {
     position: 'relative',
-    backgroundColor: theme.palette.primary.main,
     width: '80vw',
     maxWidth: 400,
     height: 324,
@@ -14,8 +13,6 @@ const useStyles = makeStyles(theme => ({
   frontLayer: {
     height: '100%',
     overflowY: 'auto',
-  },
-  mainTextWrapper: {
     padding: theme.spacing(4, 2),
   },
   backLayer: {
@@ -67,6 +64,9 @@ const menuItems = [
   },
 ];
 
+/**
+ * [a, b, c] => [a, a + b, a + b + c]
+ */
 function accumulate(arr) {
   return arr.reduce((acc, cur) => {
     acc.push((acc[acc.length - 1] || 0) + cur);
@@ -116,9 +116,7 @@ export default function BasicUsage() {
 
   const frontLayer = (
     <div className={classes.frontLayer}>
-      <div className={classes.mainTextWrapper}>
-        <Typography>{mainText}</Typography>
-      </div>
+      <Typography>{mainText}</Typography>
     </div>
   );
 
@@ -128,8 +126,8 @@ export default function BasicUsage() {
       backLayer={backLayer}
       frontLayer={frontLayer}
       backLayerOpen={backLayerOpen}
-      collapsedBackLayerHeight={minHeight}
-      expandedBackLayerHeight={maxHeight}
+      closedBackLayerHeight={minHeight}
+      openBackLayerHeight={maxHeight}
       onBackLayerClose={handleBackLayerClose}
       onBackLayerOpen={handleBackLayerOpen}
     />
