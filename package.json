@@ -1,6 +1,19 @@
 {
   "name": "material-ui-swipeable-backdrop",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ykiu/material-ui-swipeable-backdrop"
+  },
+  "bugs": {
+    "url": "https://github.com/ykiu/material-ui-swipeable-backdrop/issues"
+  },
+  "keywords": [
+    "react",
+    "material-ui",
+    "material-design"
+  ],
+  "license": "MIT",
   "main": "dist/material-ui-swipeable-backdrop.cjs.js",
   "module": "dist/material-ui-swipeable-backdrop.esm.js",
   "dependencies": {
