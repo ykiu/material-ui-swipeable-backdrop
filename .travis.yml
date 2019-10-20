@@ -6,9 +6,18 @@ script: echo "Running tests against $(node -v)..."
 
 jobs:
   include:
-    - stage: Lint Test
+    - stage: Lint Test Doc
       script:
         - npm run lint
         - npm run test -- --coverage
+        - npm run build
+      deploy:
+        - provider: pages
+          skip_cleanup: true
+          github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+          keep_history: true
+          local_dir: doc/public/
+          on:
+            branch: master
       after_script:
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
