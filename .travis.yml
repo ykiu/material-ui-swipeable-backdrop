@@ -19,5 +19,11 @@ jobs:
           local_dir: doc/public/
           on:
             branch: master
+        - provider: npm
+          skip_cleanup: true
+          email: $NPM_EMAIL
+          api_key: $NPM_TOKEN
+          on:
+            tags: true
       after_script:
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
