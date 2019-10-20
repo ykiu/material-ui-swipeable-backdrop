@@ -13,13 +13,13 @@ const SPACE = ' ';
 
 const PROPS = [
   {
-    name: 'collapsedBackLayerHeight',
+    name: 'closedBackLayerHeight',
     type: 'number',
     default_: '56',
     description: 'The height of the back layer when it is collapsed.',
   },
   {
-    name: 'expandedBackLayerHeight',
+    name: 'openBackLayerHeight',
     type: 'number',
     default_: '300',
     description: 'The height of the back layer when it is expanded.',
@@ -38,13 +38,13 @@ const PROPS = [
     description: 'Whether or not the back layer is open.',
   },
   {
-    name: 'onSwipeStart',
+    name: 'onFrontLayerUnfix',
     type: 'func',
     default_: '',
     description: 'Callback fired when a swipe starts.',
   },
   {
-    name: 'onTransitionEnd',
+    name: 'onFrontLayerFix',
     type: 'func',
     default_: '',
     description: 'Callback fired when a swipe and the subsequent animation ends.',
@@ -57,7 +57,7 @@ const PROPS = [
   },
   {
     name: 'onBackLayerClose',
-    type: 'func (required),',
+    type: 'func (required)',
     default_: '',
     description: 'Callback fired when the back layer requires to be closed.',
   },
@@ -165,7 +165,9 @@ function Main() {
               <td>
                 <code>{type}</code>
               </td>
-              <td>{default_}</td>
+              <td>
+                <code>{default_}</code>
+              </td>
               <td>{description}</td>
             </tr>
           ))}
