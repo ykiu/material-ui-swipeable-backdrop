@@ -122,7 +122,7 @@ function Main() {
       <Demo
         code={preval`
               module.exports = require(
-                './preprocessors/highlight'
+                './preprocessors/processCode'
               )(
                 './doc/demos/BasicUsage.js'
               );
