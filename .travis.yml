@@ -24,6 +24,6 @@ jobs:
           email: $NPM_EMAIL
           api_key: $NPM_TOKEN
           on:
-            branch: master
+            tags: true
       after_script:
         - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
