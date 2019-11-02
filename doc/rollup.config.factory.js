@@ -3,6 +3,7 @@ import replace from '@rollup/plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+import analyze from 'rollup-plugin-analyzer';
 import css from 'rollup-plugin-css-only';
 
 export default ({ env }) => ({
@@ -31,5 +32,6 @@ export default ({ env }) => ({
     }),
     env === 'production' && terser(),
     css({ output: './doc/public/bundle.css' }),
+    analyze({ summaryOnly: true }),
   ],
 });
