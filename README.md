@@ -35,8 +35,8 @@ npm run lint
 // Auto-formatting
 npm run format
 
-// Building the document
-npm run build:doc
+// Creating a development build of the document
+npm run build:doc:dev
 ```
 
 To view the built document locally, open doc/public/index.html with whatever browser you like (Chrome is recommended).
